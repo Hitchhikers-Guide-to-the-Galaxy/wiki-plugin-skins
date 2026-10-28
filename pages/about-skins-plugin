@@ -1,0 +1,107 @@
+{
+  "title": "About Skins Plugin",
+  "story": [
+    {
+      "type": "markdown",
+      "id": "bf959d214937c934",
+      "text": "This page is a [[Stub]] generated through a dialogue between [[David Bovill]] and [[Claude Code]]."
+    },
+    {
+      "type": "markdown",
+      "id": "591a2413afa87d94",
+      "text": "The Skins plugin is the [[Skin Switcher]]. The page is the truth; the skin is a lens. Every skin reads the same lineup of page-json and draws it its own way, and the \"Skin\" dropdown in the footer switches between them while keeping the same pages in view."
+    },
+    {
+      "type": "skins",
+      "id": "f50ecf6f7c92c512",
+      "text": "Show this lineup in another skin:"
+    },
+    {
+      "type": "markdown",
+      "id": "26ce22347daf641b",
+      "text": "# What it ships\n> Three files every skin leans on."
+    },
+    {
+      "type": "markdown",
+      "id": "f53c6dfb1793b5c8",
+      "text": "- **skin-kit.js** \u2014 the [[Skin Contract]] in code: Read the lineup and its pages, Render items, Return changes as journaled actions.\n- **The Skin dropdown** \u2014 added to the classic footer on every page.\n- **Wear** \u2014 hosts a guest skin in a sandbox; it can read but must ask before changing a page."
+    },
+    {
+      "type": "markdown",
+      "id": "132d00b531cbb2f3",
+      "text": "# Making a skin\n> A plugin named skin-something with two files."
+    },
+    {
+      "type": "markdown",
+      "id": "6096f4d6cfe3344c",
+      "text": "A skin is a plugin called `wiki-plugin-skin-<id>` whose client folder holds `skin.html` and `skin.json`. See [[Vibe Coding a Skin]] and the [[Triptych Skin]] for a worked example."
+    },
+    {
+      "type": "markdown",
+      "id": "6938abd955b7eb06",
+      "text": "# See\n- [[Same Page, Many Skins]]\n- [[Skin Kit]]\n- [[Trusted and Guest Skins]]"
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "About Skins Plugin",
+        "story": [
+          {
+            "type": "markdown",
+            "id": "bf959d214937c934",
+            "text": "This page is a [[Stub]] generated through a dialogue between [[David Bovill]] and [[Claude Code]]."
+          },
+          {
+            "type": "markdown",
+            "id": "591a2413afa87d94",
+            "text": "The Skins plugin is the [[Skin Switcher]]. The page is the truth; the skin is a lens. Every skin reads the same lineup of page-json and draws it its own way, and the \"Skin\" dropdown in the footer switches between them while keeping the same pages in view."
+          },
+          {
+            "type": "skins",
+            "id": "f50ecf6f7c92c512",
+            "text": "Show this lineup in another skin:"
+          },
+          {
+            "type": "markdown",
+            "id": "26ce22347daf641b",
+            "text": "# What it ships\n> Three files every skin leans on."
+          },
+          {
+            "type": "markdown",
+            "id": "f53c6dfb1793b5c8",
+            "text": "- **skin-kit.js** \u2014 the [[Skin Contract]] in code: Read the lineup and its pages, Render items, Return changes as journaled actions.\n- **The Skin dropdown** \u2014 added to the classic footer on every page.\n- **Wear** \u2014 hosts a guest skin in a sandbox; it can read but must ask before changing a page."
+          },
+          {
+            "type": "markdown",
+            "id": "132d00b531cbb2f3",
+            "text": "# Making a skin\n> A plugin named skin-something with two files."
+          },
+          {
+            "type": "markdown",
+            "id": "6096f4d6cfe3344c",
+            "text": "A skin is a plugin called `wiki-plugin-skin-<id>` whose client folder holds `skin.html` and `skin.json`. See [[Vibe Coding a Skin]] and the [[Triptych Skin]] for a worked example."
+          },
+          {
+            "type": "markdown",
+            "id": "6938abd955b7eb06",
+            "text": "# See\n- [[Same Page, Many Skins]]\n- [[Skin Kit]]\n- [[Trusted and Guest Skins]]"
+          }
+        ]
+      },
+      "date": 1793148084162,
+      "provenance": "Authored by an AI agent \u2014 Claude Code via the [[fedwiki-create-plugin]] skill, for the [[Skin Switcher Plan]], 28 Oct 2026. [https://claude.com/claude-code Claude Code]",
+      "meta": {
+        "v": 1,
+        "agent": {
+          "kind": "ai",
+          "name": "Claude Code",
+          "session": "0cf3bc53-27e1-4943-a439-c8fe48ecb291"
+        },
+        "act": "create"
+      }
+    }
+  ],
+  "plugin": "skins"
+}

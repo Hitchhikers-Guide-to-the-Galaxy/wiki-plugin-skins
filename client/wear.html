@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wear a Skin</title>
+<!-- Wear: hosts a GUEST skin in a sandboxed iframe. The guest can read the
+     lineup and its pages (the host fetches them and hands them in) but has no
+     cookies and cannot write; to change a page it must ask, and the bar below
+     asks the owner. -->
+<style>
+  :root { --ink:#1f2328; --muted:#6a737d; --line:#e6e8eb; --bar:#fafbfc; --ask:#fff3e6; --accent:#b5511d; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#e6e8eb; --muted:#9aa4ad; --line:#2a2e33; --bar:#16181c; --ask:#241a10; }
+  }
+  * { box-sizing: border-box }
+  html, body { height: 100%; margin: 0; background: var(--bar); color: var(--ink);
+    font: 14px -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif }
+  body { display: flex; flex-direction: column }
+  header { display: flex; gap: 12px; align-items: center; padding: 6px 14px; border-bottom: 1px solid var(--line) }
+  header .note { color: var(--muted); font-size: 12px }
+  .skin-switcher select { font: inherit }
+  #ask { display: none; gap: 10px; align-items: center; padding: 8px 14px; background: var(--ask);
+    border-bottom: 2px solid var(--accent) }
+  #ask.on { display: flex }
+  #ask button { font: inherit; padding: 2px 12px }
+  iframe { flex: 1; width: 100%; border: 0; background: transparent }
+</style>
+</head>
+<body>
+<header id="bar"><span class="note" id="note"></span></header>
+<div id="ask"><span id="ask-text"></span><button id="allow">Allow</button><button id="deny">Deny</button></div>
+<iframe id="frame" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Guest skin"></iframe>
+<script src="/plugins/skins/skin-kit.js"></script>
+<script>
+  var name = new URLSearchParams(location.search).get('skin') || ''
+  var frame = document.getElementById('frame')
+  var note = document.getElementById('note')
+
+  SkinKit.listSkins().then(function (skins) {
+    var skin = skins.filter(function (s) { return s.plugin === name })[0]
+    if (!skin) { note.textContent = 'No skin called ' + name + ' is installed here.'; return }
+    document.title = skin.label + ' skin'
+    SkinKit.mountSwitcher(document.getElementById('bar'), { current: skin.id }).after(note)
+    note.textContent = skin.label + ' is a guest skin: it can read these pages but must ask before changing them.'
+
+    SkinKit.wear({
+      frame: frame,
+      skin: skin,
+      approve: function (skin, m) {
+        return new Promise(function (resolve) {
+          var ask = document.getElementById('ask')
+          document.getElementById('ask-text').textContent =
+            skin.label + ' asks to ' + ((m.action && m.action.type) || 'change') + ' an item on "' + m.slug + '".'
+          ask.classList.add('on')
+          function done (yes) { ask.classList.remove('on'); resolve(yes) }
+          document.getElementById('allow').onclick = function () { done(true) }
+          document.getElementById('deny').onclick = function () { done(false) }
+        })
+      }
+    })
+    // Load the skin as srcdoc (the pattern Deck uses): some browsers refuse a
+    // sandboxed iframe navigated by src. A <base> keeps the skin's own
+    // relative and /plugins/ URLs pointing at this wiki.
+    // The kit itself is inlined: some browsers also refuse script files
+    // requested from a sandboxed frame.
+    var dir = location.origin + '/plugins/' + skin.plugin + '/'
+    function text (url) {
+      return fetch(url).then(function (res) { if (!res.ok) throw new Error(res.status + ' ' + url); return res.text() })
+    }
+    Promise.all([text(dir + skin.entry), text('/plugins/skins/skin-kit.js')]).then(function (got) {
+      var html = got[0], kit = '<script>' + got[1].replace(/<\/script/gi, '<\\/script') + '<\/script>'
+      var hadTag = false
+      html = html.replace(/<script[^>]*src=["'][^"']*skin-kit\.js["'][^>]*><\/script>/i, function () { hadTag = true; return kit })
+      var head = '<base href="' + dir + '">' + (hadTag ? '' : kit)
+      frame.srcdoc = /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, function (m) { return m + head }) : head + html
+    }).catch(function (e) { note.textContent = 'Could not load the ' + skin.label + ' skin: ' + e.message })
+  })
+</script>
+</body>
+</html>
