@@ -2,9 +2,29 @@
   "name": "wiki-plugin-skins",
   "version": "0.1.0",
   "description": "Skin Switcher for federated wiki: the skin kit, the Skin dropdown, and the sandbox host for guest skins. The page is the truth; the skin is a lens.",
-  "keywords": ["wiki", "federated wiki", "plugin", "skin", "lineup"],
+  "keywords": [
+    "wiki",
+    "federated wiki",
+    "plugin",
+    "skin",
+    "lineup"
+  ],
   "author": "David Bovill",
   "license": "MIT",
-  "files": ["client", "pages", "factory.json"],
-  "scripts": { "check": "node --check client/skin-kit.js && node --check client/skin-switcher.js && node --check client/skins.js" }
+  "files": [
+    "client",
+    "pages",
+    "factory.json"
+  ],
+  "scripts": {
+    "check": "node --check client/skin-kit.js && node --check client/skin-switcher.js && node --check client/skins.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hitchhikers-Guide-to-the-Galaxy/wiki-plugin-skins.git"
+  },
+  "homepage": "https://github.com/Hitchhikers-Guide-to-the-Galaxy/wiki-plugin-skins#readme",
+  "bugs": {
+    "url": "https://github.com/Hitchhikers-Guide-to-the-Galaxy/wiki-plugin-skins/issues"
+  }
 }
